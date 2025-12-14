@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <link rel="stylesheet" href="css/style_chitiet.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <title>Chi tiết sản phẩm - Life &amp; Cooking</title>
+  </head>
+  <body>
+    <!-- HEADER -->
+    <header class="header">
+      <div class="top-header">
+        <!-- Logo -->
+        <div id="b1">
+          <a href="Index.html" class="logo-link">
+            <img src="icon/logo.png" alt="Logo" />
+          </a>
+        </div>
+
+        <!-- Search -->
+        <div id="b2">
+          <div class="search-box">
+            <input
+              class="search-box_input"
+              type="text"
+              id="search-input"
+              placeholder="Tìm kiếm sản phẩm..."
+            />
+            <button class="search-box_btn" type="button">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+            <ul id="suggestions" class="suggestions"></ul>
+          </div>
+        </div>
+
+        <!-- Login / User -->
+        <div id="b3">
+          <div class="login-box">
+            <div class="user-container">
+              <span id="user-info" class="user-name"></span>
+              <div class="user-actions">
+                <button
+                  id="admin-btn"
+                  class="admin_btn"
+                  type="button"
+                  style="display: none;"
+                >
+                  <i class="fa-solid fa-user-shield"></i>
+                </button>
+                <button id="logout-btn" class="logout_btn">
+                  <span>
+                    <i class="fa-solid fa-user"></i> Thông tin cá nhân
+                  </span>
+                </button>
+              </div>
+            </div>
+            <a href="Login.html" id="login-link" class="login-link">
+              <button class="login_btn" type="button">
+                <span>
+                  <i class="fa-solid fa-right-to-bracket"></i> Đăng nhập
+                </span>
+              </button>
+            </a>
+          </div>
+        </div>
+
+        <!-- Cart -->
+        <div id="b4">
+          <div class="Shopping-box">
+            <a href="Shopping.html">
+              <button class="shopping_btn" type="button">
+                <span>
+                  <i class="fa-solid fa-cart-shopping"></i> Giỏ hàng
+                </span>
+              </button>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- MENU -->
+      <div class="bot-header">
+        <ul class="menu">
+          <li class="menu-item">
+            <a href="#" class="menu-link">
+              <i class="fa-solid fa-kitchen-set"></i>
+              <span>Dụng cụ bếp</span>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="#" class="menu-link">
+              <i class="fa-solid fa-blender"></i>
+              <span>Gia dụng nhỏ</span>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="#" class="menu-link">
+              <i class="fa-solid fa-pump-soap"></i>
+              <span>Vệ sinh &amp; Làm sạch</span>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="#" class="menu-link">
+              <i class="fa-solid fa-box-open"></i>
+              <span>Lưu trữ</span>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="#" class="menu-link">
+              <i class="fa-solid fa-shower"></i>
+              <span>Phòng tắm</span>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="#" class="menu-link">
+              <i class="fa-solid fa-fill-drip"></i>
+              <span>Vải &amp; Khăn</span>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="#" class="menu-link">
+              <i class="fa-solid fa-screwdriver-wrench"></i>
+              <span>Phụ kiện</span>
+            </a>
+            <ul class="submenu">
+              <li><a href="#">Keo móc</a></li>
+              <li><a href="#">Giá treo</a></li>
+              <li><a href="#">Túi &amp; Hộp</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </header>
+
+    <!-- MAIN -->
+    <main>
+      <section class="product-detail-container">
+        <div class="product-detail">
+          <div class="product-image">
+            <div class="product-image-wrapper">
+              <img id="product-image" alt="Product Image" />
+            </div>
+          </div>
+
+          <div class="product-info">
+            <h1 id="product-name"></h1>
+            <p id="product-price" class="product-price"></p>
+            <p class="product-description">
+              <strong>Mô tả:</strong>
+              <span id="product-description"></span>
+            </p>
+
+            <div class="quantity">
+              <label for="quantity-input">Số lượng:</label>
+              <div class="quantity-controls">
+                <button id="decrease-btn" type="button">−</button>
+                <input
+                  type="text"
+                  id="quantity-input"
+                  value="1"
+                  readonly
+                />
+                <button id="increase-btn" type="button">+</button>
+              </div>
+            </div>
+
+            <div class="buttons">
+              <button id="buy-now-btn" type="button">Mua ngay</button>
+              <button id="add-to-cart-btn" type="button">
+                Thêm vào giỏ hàng
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-reviews">
+          <div class="reviews-header">
+            <h2>Đánh giá sản phẩm</h2>
+            <button id="add-review-btn" class="review-btn" type="button">
+              <i class="fa-solid fa-pen"></i> Đánh giá
+            </button>
+          </div>
+          <div id="reviews-container" class="reviews-list"></div>
+        </div>
+      </section>
+
+      <!-- SẢN PHẨM KHÁC -->
+      <section class="other-products-container">
+        <div class="other-products-header">
+          <h2>Sản phẩm khác</h2>
+          <a href="all-product.html" class="view-more-link">Xem thêm &gt;&gt;</a>
+        </div>
+        <div class="other-products" id="other-products"></div>
+      </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="footer-top">
+        <div class="footer-column">
+          <h4>Dịch Vụ Khách Hàng</h4>
+          <ul>
+            <li><a href="#">Trung Tâm Trợ Giúp</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Mall</a></li>
+            <li><a href="#">Hướng Dẫn Mua Hàng/Đặt Hàng</a></li>
+            <li><a href="#">Hướng Dẫn Bán Hàng</a></li>
+            <li><a href="#">Đơn Hàng</a></li>
+            <li><a href="#">Trả Hàng/Hoàn Tiền</a></li>
+            <li><a href="#">Liên Hệ</a></li>
+            <li><a href="#">Chính Sách Bảo Hành</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Life&Cooking Việt Nam</h4>
+          <ul>
+            <li><a href="#">Về Life&Cooking</a></li>
+            <li><a href="#">Tuyển Dụng</a></li>
+            <li><a href="#">Điều Khoản </a></li>
+            <li><a href="#">Chính Sách Bảo Mật</a></li>
+            <li><a href="#">Life&Cooking Mall</a></li>
+            <li><a href="#">Kênh Người Bán</a></li>
+            <li><a href="#">Flash Sale</a></li>
+            <li><a href="#">Tiếp Thị Liên Kết</a></li>
+            <li><a href="#">Liên Hệ Truyền Thông</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Thanh Toán</h4>
+          <img src="icon/visa.png" alt="Visa" />
+          <img src="icon/mastercard.png" alt="MasterCard" />
+          <img src="icon/JCB.png" alt="JCB" />
+          <img src="icon/cod.png" alt="COD" />
+        </div>
+        <div class="footer-column">
+          <h4>Theo Dõi Life&Cooking</h4>
+          <ul>
+            <li><a href="#">Facebook</a></li>
+            <li><a href="#">Instagram</a></li>
+            <li><a href="#">LinkedIn</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Địa Chỉ</h4>
+          <p>Mễ Hạ, Yên Phú, Yên Mỹ, Hưng Yên</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 Life&Cooking. Tất cả các quyền được bảo lưu.</p>
+        <p>
+          Quốc gia &amp; Khu vực: Singapore | Indonesia | Thái Lan | Malaysia |
+          Việt Nam | Philippines | Brazil | México | Colombia | Chile | Đài Loan
+        </p>
+      </div>
+    </footer>
+
+    <script src="js/script_chitiet.js"></script>
+  </body>
+</html>

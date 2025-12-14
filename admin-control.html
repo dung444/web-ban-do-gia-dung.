@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Bảng điều khiển quản trị - Gia Dụng Store</title>
+    <link rel="stylesheet" href="css/style_admin_control.css" />
+  </head>
+  <body>
+    <header class="admin-header">
+      <div class="admin-header-inner">
+        <div class="admin-header-left">
+          <a href="Index.html" class="admin-logo-link">
+            <div class="admin-logo-circle">
+              <span>GD</span>
+            </div>
+          </a>
+          <div class="admin-title-block">
+            <span class="admin-brand">Gia Dụng Store</span>
+            <span class="admin-subtitle">Bảng điều khiển quản trị</span>
+          </div>
+        </div>
+
+        <div class="admin-header-right">
+          <div class="admin-user-info">
+            <span class="admin-user-label">Xin chào,</span>
+            <span id="admin-name" class="admin-user-name">Quản trị viên</span>
+          </div>
+          <button id="admin-logout" class="logout-btn">
+            Đăng xuất
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main class="admin-main">
+      <!-- Intro + stats -->
+      <section class="admin-intro">
+        <div class="admin-intro-text">
+          <h1>Trung tâm quản lý hệ thống</h1>
+          <p>
+            Theo dõi sản phẩm, người dùng, chương trình Flash Sale và đơn hàng
+            của cửa hàng Gia Dụng – tất cả tại một nơi.
+          </p>
+        </div>
+        <div class="admin-stats">
+          <div class="stat-card">
+            <span class="stat-label">Tổng sản phẩm</span>
+            <span id="total-products" class="stat-value">0</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">Tài khoản người dùng</span>
+            <span id="total-users" class="stat-value">0</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">Đơn hàng</span>
+            <span id="total-orders" class="stat-value">0</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Quick actions -->
+      <section class="admin-actions">
+        <h2>Chức năng quản trị</h2>
+        <div class="action-grid">
+          <article class="action-card" onclick="manageProducts()">
+            <div class="action-icon products">
+              📦
+            </div>
+            <h3>Quản lý sản phẩm</h3>
+            <p>
+              Thêm, sửa, xóa sản phẩm đồ gia dụng, phân loại theo danh mục và
+              quản lý hình ảnh, mô tả, giá.
+            </p>
+            <button class="action-btn">Mở quản lý sản phẩm</button>
+          </article>
+
+          <article class="action-card" onclick="manageUsers()">
+            <div class="action-icon users">
+              👤
+            </div>
+            <h3>Quản lý người dùng</h3>
+            <p>
+              Xem danh sách tài khoản, khóa / mở khóa người dùng vi phạm, quản
+              lý thông tin cơ bản.
+            </p>
+            <button class="action-btn">Mở quản lý người dùng</button>
+          </article>
+
+          <article class="action-card" onclick="updateContent()">
+            <div class="action-icon flashsale">
+              ⚡
+            </div>
+            <h3>Flash Sale & nội dung</h3>
+            <p>
+              Thiết lập sản phẩm Flash Sale, thời gian kết thúc, mức giảm giá
+              và mô tả ưu đãi.
+            </p>
+            <button class="action-btn">Mở quản lý Flash Sale</button>
+          </article>
+
+          <article class="action-card" onclick="viewOrders()">
+            <div class="action-icon orders">
+              🧾
+            </div>
+            <h3>Đơn hàng đặt</h3>
+            <p>
+              Theo dõi trạng thái đơn hàng, tình trạng thanh toán, cập nhật xử
+              lý & hoàn tất đơn.
+            </p>
+            <button class="action-btn">Xem danh sách đơn hàng</button>
+          </article>
+
+          <article class="action-card" onclick="manageBrands()">
+            <div class="action-icon brands">
+              🏷️
+            </div>
+            <h3>Quản lý thương hiệu</h3>
+            <p>
+              Thêm/sửa/xóa thương hiệu và gán thương hiệu cho sản phẩm hiện có.
+            </p>
+            <button class="action-btn">Mở quản lý thương hiệu</button>
+          </article>
+
+          <article class="action-card" onclick="managePayments()">
+            <div class="action-icon payments">
+              💳
+            </div>
+            <h3>Quản lý thanh toán</h3>
+            <p>
+              Cấu hình phương thức thanh toán, mã QR ngân hàng, thông tin chuyển khoản và quản lý giao dịch.
+            </p>
+            <button class="action-btn">Mở quản lý thanh toán</button>
+          </article>
+
+          <article class="action-card" onclick="viewStatistics()">
+            <div class="action-icon stats">
+              📊
+            </div>
+            <h3>Thống kê</h3>
+            <p>
+              Xem thống kê theo danh mục, thương hiệu, đơn hàng và doanh thu.
+            </p>
+            <button class="action-btn">Mở thống kê</button>
+          </article>
+        </div>
+      </section>
+
+      <section class="admin-tip">
+        <h3>Lưu ý bảo mật</h3>
+        <p>
+          Hãy luôn đăng xuất sau khi quản lý xong trên những thiết bị công
+          cộng. Kiểm tra kỹ nội dung trước khi cập nhật Flash Sale và sản
+          phẩm.
+        </p>
+      </section>
+    </main>
+  </body>
+
+  <script src="js/script_admin_control.js"></script>
+</html>
