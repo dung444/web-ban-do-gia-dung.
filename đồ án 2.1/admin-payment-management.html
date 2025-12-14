@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quản lý thanh toán - Admin</title>
+    <link rel="stylesheet" href="css/style_admin_control.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <style>
+      .payment-management {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      
+      .payment-tabs {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 30px;
+        border-bottom: 2px solid #e5e7eb;
+      }
+      
+      .payment-tab {
+        padding: 12px 24px;
+        background: none;
+        border: none;
+        border-bottom: 3px solid transparent;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 500;
+        color: #6b7280;
+        transition: all 0.3s ease;
+      }
+      
+      .payment-tab.active {
+        color: #3b82f6;
+        border-bottom-color: #3b82f6;
+      }
+      
+      .payment-tab:hover {
+        color: #3b82f6;
+      }
+      
+      .tab-content {
+        display: none;
+      }
+      
+      .tab-content.active {
+        display: block;
+      }
+      
+      .payment-card {
+        background: white;
+        border-radius: 12px;
+        padding: 24px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        margin-bottom: 24px;
+      }
+      
+      .payment-card h3 {
+        margin: 0 0 16px 0;
+        color: #111827;
+        font-size: 18px;
+      }
+      
+      .form-group {
+        margin-bottom: 20px;
+      }
+      
+      .form-group label {
+        display: block;
+        margin-bottom: 6px;
+        font-weight: 500;
+        color: #374151;
+      }
+      
+      .form-group input,
+      .form-group textarea,
+      .form-group select {
+        width: 100%;
+        padding: 10px 12px;
+        border: 1px solid #d1d5db;
+        border-radius: 6px;
+        font-size: 14px;
+        transition: border-color 0.3s ease;
+      }
+      
+      .form-group input:focus,
+      .form-group textarea:focus,
+      .form-group select:focus {
+        outline: none;
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+      }
+      
+      .form-group textarea {
+        resize: vertical;
+        min-height: 80px;
+      }
+      
+      .file-upload {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+        width: 100%;
+      }
+      
+      .file-upload input[type="file"] {
+        position: absolute;
+        opacity: 0;
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+      }
+      
+      .file-upload-label {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 40px 20px;
+        border: 2px dashed #d1d5db;
+        border-radius: 8px;
+        background: #f9fafb;
+        color: #6b7280;
+        transition: all 0.3s ease;
+      }
+      
+      .file-upload:hover .file-upload-label {
+        border-color: #3b82f6;
+        background: #eff6ff;
+        color: #3b82f6;
+      }
+      
+      .qr-preview {
+        margin-top: 16px;
+        text-align: center;
+      }
+      
+      .qr-preview img {
+        max-width: 200px;
+        max-height: 200px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+      
+      .btn {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 6px;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+      
+      .btn-primary {
+        background: #3b82f6;
+        color: white;
+      }
+      
+      .btn-primary:hover {
+        background: #2563eb;
+      }
+      
+      .btn-success {
+        background: #10b981;
+        color: white;
+      }
+      
+      .btn-success:hover {
+        background: #059669;
+      }
+      
+      .btn-danger {
+        background: #ef4444;
+        color: white;
+      }
+      
+      .btn-danger:hover {
+        background: #dc2626;
+      }
+      
+      .payment-methods-list {
+        display: grid;
+        gap: 16px;
+      }
+      
+      .payment-method-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 16px;
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+        background: #f9fafb;
+      }
+      
+      .payment-method-info {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      
+      .payment-method-icon {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: white;
+        border-radius: 6px;
+        font-size: 18px;
+      }
+      
+      .payment-method-details h4 {
+        margin: 0 0 4px 0;
+        color: #111827;
+      }
+      
+      .payment-method-details p {
+        margin: 0;
+        color: #6b7280;
+        font-size: 14px;
+      }
+      
+      .payment-method-actions {
+        display: flex;
+        gap: 8px;
+      }
+      
+      .toggle-switch {
+        position: relative;
+        display: inline-block;
+        width: 50px;
+        height: 24px;
+      }
+      
+      .toggle-switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+      
+      .toggle-slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        transition: 0.4s;
+        border-radius: 24px;
+      }
+      
+      .toggle-slider:before {
+        position: absolute;
+        content: "";
+        height: 18px;
+        width: 18px;
+        left: 3px;
+        bottom: 3px;
+        background-color: white;
+        transition: 0.4s;
+        border-radius: 50%;
+      }
+      
+      input:checked + .toggle-slider {
+        background-color: #10b981;
+      }
+      
+      input:checked + .toggle-slider:before {
+        transform: translateX(26px);
+      }
+      
+      .success-message {
+        background: #d1fae5;
+        color: #065f46;
+        padding: 12px 16px;
+        border-radius: 6px;
+        margin-bottom: 20px;
+        display: none;
+      }
+      
+      .error-message {
+        background: #fee2e2;
+        color: #991b1b;
+        padding: 12px 16px;
+        border-radius: 6px;
+        margin-bottom: 20px;
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="admin-header">
+      <div class="admin-header-inner">
+        <div class="admin-header-left">
+          <a href="admin-control.html" class="admin-logo-link">
+            <div class="admin-logo-circle">
+              <span>GD</span>
+            </div>
+          </a>
+          <div class="admin-title-block">
+            <span class="admin-brand">Quản lý thanh toán</span>
+            <span class="admin-subtitle">Cấu hình phương thức thanh toán</span>
+          </div>
+        </div>
+        <div class="admin-header-right">
+          <a href="admin-control.html" class="btn btn-primary">
+            <i class="fas fa-arrow-left"></i>
+            Quay lại
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main class="payment-management">
+      <div class="success-message" id="success-message">
+        <i class="fas fa-check-circle"></i>
+        <span id="success-text"></span>
+      </div>
+      
+      <div class="error-message" id="error-message">
+        <i class="fas fa-exclamation-circle"></i>
+        <span id="error-text"></span>
+      </div>
+
+      <div class="payment-tabs">
+        <button class="payment-tab active" data-tab="methods">
+          <i class="fas fa-credit-card"></i>
+          Phương thức thanh toán
+        </button>
+        <button class="payment-tab" data-tab="bank-info">
+          <i class="fas fa-university"></i>
+          Thông tin ngân hàng
+        </button>
+        <button class="payment-tab" data-tab="qr-codes">
+          <i class="fas fa-qrcode"></i>
+          Mã QR thanh toán
+        </button>
+        <button class="payment-tab" data-tab="transactions">
+          <i class="fas fa-receipt"></i>
+          Giao dịch
+        </button>
+      </div>
+
+      <!-- Tab: Phương thức thanh toán -->
+      <div class="tab-content active" id="methods-tab">
+        <div class="payment-card">
+          <h3><i class="fas fa-cogs"></i> Cấu hình phương thức thanh toán</h3>
+          <div class="payment-methods-list" id="payment-methods-list">
+            <!-- Sẽ được tạo bằng JavaScript -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab: Thông tin ngân hàng -->
+      <div class="tab-content" id="bank-info-tab">
+        <div class="payment-card">
+          <h3><i class="fas fa-university"></i> Thông tin tài khoản ngân hàng</h3>
+          <form id="bank-info-form">
+            <div class="form-group">
+              <label for="bank-name">Tên ngân hàng</label>
+              <input type="text" id="bank-name" placeholder="VD: Vietcombank, Techcombank..." />
+            </div>
+            
+            <div class="form-group">
+              <label for="account-number">Số tài khoản</label>
+              <input type="text" id="account-number" placeholder="Nhập số tài khoản" />
+            </div>
+            
+            <div class="form-group">
+              <label for="account-holder">Tên chủ tài khoản</label>
+              <input type="text" id="account-holder" placeholder="Tên chủ tài khoản" />
+            </div>
+            
+            <div class="form-group">
+              <label for="branch">Chi nhánh</label>
+              <input type="text" id="branch" placeholder="Chi nhánh ngân hàng" />
+            </div>
+            
+            <div class="form-group">
+              <label for="transfer-note">Nội dung chuyển khoản</label>
+              <textarea id="transfer-note" placeholder="VD: Thanh toan don hang [MA_DON_HANG] - [TEN_KHACH_HANG]"></textarea>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">
+              <i class="fas fa-save"></i>
+              Lưu thông tin ngân hàng
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Tab: Mã QR thanh toán -->
+      <div class="tab-content" id="qr-codes-tab">
+        <div class="payment-card">
+          <h3><i class="fas fa-qrcode"></i> Quản lý mã QR thanh toán</h3>
+          
+          <div class="form-group">
+            <label>Mã QR ngân hàng chính</label>
+            <div class="file-upload">
+              <input type="file" id="main-qr-upload" accept="image/*" />
+              <div class="file-upload-label">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <span>Chọn ảnh mã QR hoặc kéo thả vào đây</span>
+              </div>
+            </div>
+            <div class="qr-preview" id="main-qr-preview"></div>
+          </div>
+          
+          <div class="form-group">
+            <label>Mã QR dự phòng (tùy chọn)</label>
+            <div class="file-upload">
+              <input type="file" id="backup-qr-upload" accept="image/*" />
+              <div class="file-upload-label">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <span>Chọn ảnh mã QR dự phòng</span>
+              </div>
+            </div>
+            <div class="qr-preview" id="backup-qr-preview"></div>
+          </div>
+          
+          <button type="button" class="btn btn-primary" onclick="saveQRCodes()">
+            <i class="fas fa-save"></i>
+            Lưu mã QR
+          </button>
+        </div>
+      </div>
+
+      <!-- Tab: Giao dịch -->
+      <div class="tab-content" id="transactions-tab">
+        <div class="payment-card">
+          <h3><i class="fas fa-receipt"></i> Lịch sử giao dịch</h3>
+          <div id="transactions-list">
+            <!-- Sẽ được tạo bằng JavaScript -->
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script src="js/script_admin_payment.js"></script>
+  </body>
+</html>
